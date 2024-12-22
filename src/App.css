@@ -1,0 +1,14 @@
+#root {
+  @apply bg-blue-100;
+  min-height: 100vh;
+  /* overflow-x: hidden; */
+  position: relative;
+  /* max-width: 1280px;
+  padding: 2rem;
+  text-align: center; */
+}
+.triangle {
+  /* border-left: 7px solid transparent; */
+  border-right: 32px solid transparent;
+  border-top: 32px solid;
+}
