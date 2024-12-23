@@ -2,8 +2,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../components/ModalFilter";
 import {
+  filterByBookmark,
   filterByCatagories,
   selectCategories,
+  selectFilteredBookmark,
   selectFilteredCategories,
   selectSortedType,
   sortingProducts,
@@ -15,6 +17,7 @@ const FilterModal = ({ handleHideModalFilter }) => {
   const categories = useSelector(selectCategories);
   const filteredCategoris = useSelector(selectFilteredCategories);
   const sortedType = useSelector(selectSortedType);
+  const filteredBookmark = useSelector(selectFilteredBookmark);
   const sortDatas = [
     { value: "ASC", label: "Sort A-Z" },
     { value: "DESC", label: "Sort Z-A" },
@@ -29,6 +32,9 @@ const FilterModal = ({ handleHideModalFilter }) => {
   };
   const handleDropdownSort = (event) => {
     dispatch(sortingProducts(event.target.value));
+  };
+  const handleButtonBookmark = () => {
+    dispatch(filterByBookmark());
   };
 
   const multiSelect = ({ categories, handleMultiSelectCategory }) => {
@@ -83,6 +89,29 @@ const FilterModal = ({ handleHideModalFilter }) => {
       </section>
     );
   };
+  const selectBookmark = ({ handleButtonBookmark }) => {
+    const isActive = filteredBookmark;
+
+    return (
+      <section className="w-full text-gray-700 pt-1 pb-2 space-y-1">
+        <h3 className="text-lg font-medium">Bookmark</h3>
+        <button
+          onClick={() => handleButtonBookmark()}
+          className={`relative w-full p-2 cursor-pointer rounded bg-blue-100 hover:bg-blue-200 shadow border border-gray-300 overflow-hidden group
+                    ${isActive ? "ring-inset ring-2 ring-blue-700" : null}
+                  `}
+        >
+          {isActive ? (
+            <div className="absolute top-0 left-0">
+              <div className="triangle absolute overflow-visible border-t-blue-700"></div>
+              <FaCheck className="absolute top-0.5 left-1 text-blue-100 group-hover:text-blue-200" />
+            </div>
+          ) : null}
+          Show Bookmark
+        </button>
+      </section>
+    );
+  };
 
   return (
     <Modal handleHideModal={handleHideModalFilter}>
@@ -90,6 +119,7 @@ const FilterModal = ({ handleHideModalFilter }) => {
       <div className="mx-2 pb-2 divide-y-4 divide-gray-300">
         {multiSelect({ categories, handleMultiSelectCategory })}
         {dropdown({ sortDatas, handleDropdownSort, sortedType })}
+        {selectBookmark({ handleButtonBookmark })}
       </div>
     </Modal>
   );

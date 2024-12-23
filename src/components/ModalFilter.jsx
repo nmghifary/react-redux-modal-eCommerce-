@@ -14,10 +14,7 @@ const ModalOverlay = ({ children, handleHideModal }) => {
         onClick={handleHideModal}
         className="fixed top-0 left-0 w-full h-screen"
       />
-      <div
-        className="bg-white rounded-bl-lg shadow-lg text-gray-900 z-40 overflow-hidden"
-        // transform transition-transform duration-300 ease-in-out"
-      >
+      <div className="bg-white rounded-bl-lg shadow-lg text-gray-900 z-40 overflow-hidden">
         {children}
       </div>
     </div>

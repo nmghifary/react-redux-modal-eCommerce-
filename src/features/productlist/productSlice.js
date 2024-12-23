@@ -8,8 +8,27 @@ const initialState = {
     filteredCategories: [],
     sortedType: "",
     searchKeyword: "",
-    bookmarkProducts: [],
+    filteredBookmark: false,
 };
+
+const getFilteredProducts = (state) => {
+    let tempDatas = [];
+    if (state.keywordSearch !== "") {
+        tempDatas = state.productItems.filter(item => item.title.toLowerCase().includes(state.searchKeyword.toLowerCase()));
+    } else {
+        tempDatas = state.productItems
+    }
+
+    if (state.filteredBookmark) {
+        tempDatas = tempDatas.filter(item => item.bookmark === true);
+    }
+
+    if (state.filteredCategories.length !== 0) {
+        tempDatas = tempDatas.filter(item => state.filteredCategories.includes(item.category));
+    }
+
+    state.filteredProducts = sortData(tempDatas, state.sortedType)
+}
 
 export const productSlice = createSlice({
     name: "product",
@@ -17,8 +36,13 @@ export const productSlice = createSlice({
     reducers: {
         storeProduct: (state, action) => {
             const newItem = action.payload;
-            state.productItems = newItem;
-            state.filteredProducts = newItem;
+            state.productItems = newItem.map((item) => {
+                return {
+                    ...item,
+                    bookmark: false
+                }
+            })
+            state.filteredProducts = state.productItems
             state.categoryItems = [...new Set(newItem.map(item => item.category))];
         },
         filterByCatagories: (state, action) => {
@@ -31,18 +55,7 @@ export const productSlice = createSlice({
                 state.filteredCategories.splice(selectCategoriesIndex, 1);
             }
 
-            let tempDatas = [];
-            if (state.keywordSearch !== "") {
-                tempDatas = state.productItems.filter(item => item.title.toLowerCase().includes(state.searchKeyword.toLowerCase()));
-            } else {
-                tempDatas = state.productItems
-            }
-
-            if (state.filteredCategories.length !== 0) {
-                tempDatas = state.productItems.filter(item => state.filteredCategories.includes(item.category));
-            }
-
-            state.filteredProducts = sortData(tempDatas, state.sortedType)
+            getFilteredProducts(state);
         },
         sortingProducts: (state, action) => {
             state.filteredProducts = sortData(state.filteredProducts, action.payload)
@@ -52,23 +65,27 @@ export const productSlice = createSlice({
             const keyword = action.payload.toLowerCase();
             state.searchKeyword = keyword;
 
-            let tempDatas = [];
-            if (state.keywordSearch !== "") {
-                tempDatas = state.productItems.filter(item => item.title.toLowerCase().includes(state.searchKeyword.toLowerCase()));
-            } else {
-                tempDatas = state.productItems
-            }
-
-            if (state.filteredCategories.length !== 0) {
-                tempDatas = tempDatas.filter(item => state.filteredCategories.includes(item.category));
-            }
-
-            state.filteredProducts = sortData(tempDatas, state.sortedType)
+            getFilteredProducts(state);
         },
+        storeBookmark: (state, action) => {
+            const newItem = action.payload
+
+            state.productItems.forEach((product) => {
+                if (product.id === newItem.id) {
+                    product.bookmark = !product.bookmark
+                }
+            });
+            state.filteredProducts = state.productItems
+        },
+        filterByBookmark: (state) => {
+            state.filteredBookmark = !state.filteredBookmark
+
+            getFilteredProducts(state);
+        }
     },
 });
 
-export const { storeProduct, filterByCatagories, sortingProducts, searchProduct } = productSlice.actions;
+export const { storeProduct, filterByCatagories, sortingProducts, searchProduct, storeBookmark, filterByBookmark } = productSlice.actions;
 
 export default productSlice;
 
@@ -79,3 +96,4 @@ export const selectCategories = state => state.product.categoryItems;
 export const selectFilteredCategories = state => state.product.filteredCategories;
 export const selectSortedType = state => state.product.sortedType;
 export const selectSearchKeyword = state => state.product.searchKeyword;
+export const selectFilteredBookmark = state => state.product.filteredBookmark;
