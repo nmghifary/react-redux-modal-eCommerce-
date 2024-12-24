@@ -3,16 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../components/ModalCart";
 import {
   addItemToCart,
+  checkoutCartItems,
   removeItemFromCart,
   selectCartItems,
-  selectCartTotalItems,
-  selectCartTotalPrices,
+  selectCheckoutTotalItems,
+  selectCheckoutTotalPrices,
+  selectSelectedItemsID,
 } from "./cartSlice";
 
 const CartModal = ({ handleHideModalCart }) => {
   const cartItems = useSelector(selectCartItems);
-  const totalItems = useSelector(selectCartTotalItems);
-  const totalPrice = useSelector(selectCartTotalPrices);
+  const totalItems = useSelector(selectCheckoutTotalItems);
+  const totalPrice = useSelector(selectCheckoutTotalPrices);
+  const selectedItemsID = useSelector(selectSelectedItemsID);
   const dispatch = useDispatch();
 
   const handleClickBuy = (product) => {
@@ -21,6 +24,9 @@ const CartModal = ({ handleHideModalCart }) => {
 
   const handleClickSell = (product) => {
     dispatch(removeItemFromCart(product));
+  };
+  const handleCheckboxChange = (id) => {
+    dispatch(checkoutCartItems(id));
   };
 
   const handleCheckoutToWhatsapp = () => {
@@ -46,7 +52,13 @@ const CartModal = ({ handleHideModalCart }) => {
                 className="w-full border-b-4 border-blue-200 pb-4"
                 key={product.id}
               >
-                <div className="flex items-center w-full">
+                <div className="flex items-center w-full gap-4">
+                  <input
+                    type="checkbox"
+                    checked={selectedItemsID.includes(product.id)}
+                    onChange={() => handleCheckboxChange(product.id)}
+                    className="w-5 h-5 text-blue-500 rounded-xl"
+                  />
                   <div className="w-[120px] h-auto overflow-hidden">
                     <img
                       src={product.image}
@@ -54,7 +66,7 @@ const CartModal = ({ handleHideModalCart }) => {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="ml-10 w-[75%]">
+                  <div className="ml-4 w-[75%]">
                     <h3 className="capitalize mt-3 text-lg">{product.title}</h3>
                     <div className="flex items-center gap-2">
                       <h4 className="text-sm">{product.price}</h4>
