@@ -87,7 +87,9 @@ const CartModal = ({ handleHideModalCart }) => {
         </div>
         <div>
           <h3 className="text-md font-bold">Total Item: {totalItems}</h3>
-          <h3 className="text-md font-bold">Total Price: {totalPrice}</h3>
+          <h3 className="text-md font-bold">
+            Total Price: {Math.round(totalPrice * 100) / 100}
+          </h3>
         </div>
         <div className="flex items-center justify-between">
           <button

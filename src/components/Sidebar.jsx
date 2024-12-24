@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { useDispatch, useSelector } from "react-redux";
-import Modal from "../../components/ModalFilter";
 import {
   filterByBookmark,
   filterByCatagories,
@@ -9,10 +8,11 @@ import {
   selectFilteredCategories,
   selectSortedType,
   sortingProducts,
-} from "../productlist/productSlice";
+} from "../features/productlist/productSlice";
 import { FaCheck } from "react-icons/fa";
+import Modal from "./ModalFilter";
 
-const FilterModal = ({ handleHideModalFilter }) => {
+const Sidebar = ({ handleHideModalFilter, isOpen }) => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
   const filteredCategoris = useSelector(selectFilteredCategories);
@@ -114,15 +114,15 @@ const FilterModal = ({ handleHideModalFilter }) => {
   };
 
   return (
-    <Modal handleHideModal={handleHideModalFilter}>
+    <Modal handleHideModal={handleHideModalFilter} isOpen={isOpen}>
       <h3 className="p-2 text-2xl font-bold text-white bg-blue-700">FILTER</h3>
       <div className="mx-2 pb-2 divide-y-4 divide-gray-300">
+        {selectBookmark({ handleButtonBookmark })}
         {multiSelect({ categories, handleMultiSelectCategory })}
         {dropdown({ sortDatas, handleDropdownSort, sortedType })}
-        {selectBookmark({ handleButtonBookmark })}
       </div>
     </Modal>
   );
 };
 
-export default FilterModal;
+export default Sidebar;

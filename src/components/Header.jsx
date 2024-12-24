@@ -3,11 +3,10 @@ import CartIcon from "../assets/cart.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCartTotalItems } from "../features/cart/cartSlice";
 import { useState } from "react";
-import { CiSliderHorizontal } from "react-icons/ci";
-import { FaSearch, FaStore } from "react-icons/fa";
+import { FaBars, FaSearch, FaStore } from "react-icons/fa";
 import { searchProduct } from "../features/productlist/productSlice";
 
-const Header = ({ handleOpenModalCart, handleOpenModalFilter }) => {
+const Header = ({ handleOpenModalCart, handleOpenSidebarFilter }) => {
   const dispatch = useDispatch();
   const cartTotalItems = useSelector(selectCartTotalItems);
   const [keyword, setKeyword] = useState("");
@@ -37,10 +36,10 @@ const Header = ({ handleOpenModalCart, handleOpenModalFilter }) => {
     return (
       <button
         type="button"
-        className="relative rounded-full bg-blue-800 p-2 text-gray-100"
-        onClick={handleOpenModalFilter}
+        className="relative rounded-full bg-blue-800 p-2 text-gray-100 text-sm font-thin"
+        onClick={handleOpenSidebarFilter}
       >
-        <CiSliderHorizontal className="w-6 h-6" />
+        <FaBars className="w-4 h-6" />
       </button>
     );
   };
