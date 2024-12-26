@@ -42,12 +42,12 @@ const Sidebar = ({ handleHideModalFilter, isOpen }) => {
       <section className="w-full text-gray-700 pt-1 pb-2 space-y-1">
         <h3 className="text-lg font-medium">Categories</h3>
         <div className="grid grid-cols-2 gap-2">
-          {categories.map((category, i) => {
+          {categories.map((category, index) => {
             const isActive = filteredCategoris.includes(category);
 
             return (
               <button
-                key={i}
+                key={index}
                 onClick={() => handleMultiSelectCategory(category)}
                 className={`relative w-full p-2 cursor-pointer rounded bg-blue-100 hover:bg-blue-200 shadow border border-gray-300 overflow-hidden group
                     ${isActive ? "ring-inset ring-2 ring-blue-700" : null}

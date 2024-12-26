@@ -1,20 +1,17 @@
 /* eslint-disable react/prop-types */
 import ReactDOM from "react-dom";
 
-const BackdropOverlay = () => {
+const ModalOverlay = ({ children, handleHideModal, isOpen }) => {
   return (
-    <div className="cursor-pointer fixed top-0 left-0 w-full h-screen z-20 bg-black bg-opacity-75" />
-  );
-};
-
-const ModalOverlay = ({ children, handleHideModal }) => {
-  return (
-    <div className="fixed top-0 left-0 w-full h-screen flex items-center justify-center z-30">
+    <div
+      className={`fixed top-0 left-0 w-full h-screen flex items-center justify-center z-30 transition-all duration-300
+    ${isOpen ? "opacity-100" : "opacity-0"}`}
+    >
       <div
         onClick={handleHideModal}
-        className="fixed top-0 left-0 w-full h-screen"
+        className="fixed top-0 left-0 w-full h-screen z-20 bg-black bg-opacity-75"
       />
-      <div className="bg-white p-4 rounded-lg shadow-lg text-gray-900 mx-2 z-40">
+      <div className="min-w-[70%] max-w-[80%] bg-white p-4 rounded-lg shadow-lg text-gray-900 mx-2 z-40">
         {children}
       </div>
     </div>
@@ -23,12 +20,11 @@ const ModalOverlay = ({ children, handleHideModal }) => {
 
 const portalElement = document.getElementById("modal");
 
-const Modal = ({ children, handleHideModal }) => {
+const Modal = ({ children, handleHideModal, isOpen }) => {
   return (
     <>
-      {ReactDOM.createPortal(<BackdropOverlay />, portalElement)}
       {ReactDOM.createPortal(
-        <ModalOverlay handleHideModal={handleHideModal}>
+        <ModalOverlay handleHideModal={handleHideModal} isOpen={isOpen}>
           {children}
         </ModalOverlay>,
         portalElement

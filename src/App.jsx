@@ -9,19 +9,29 @@ import Sidebar from "./components/Sidebar";
 function App() {
   const [isOpenModalCart, setIsOpenModalCart] = useState(false);
   const [isOpenModalFilter, setIsOpenModalFilter] = useState(false);
-  const [isTranslate, setIsTranslate] = useState(false);
+  const [isTransitionModalCart, setIsTransitionModalCart] = useState(false);
+  const [isTransitionModalFilter, setIsTransitionModalFilter] = useState(false);
 
-  const handleModalCart = (value) => {
-    setIsOpenModalCart(value);
+  const handleOpenModalCart = () => {
+    setIsOpenModalCart(true);
+    setTimeout(() => {
+      setIsTransitionModalCart(true);
+    }, 10);
+  };
+  const handleCloseModalCart = () => {
+    setIsTransitionModalCart(false);
+    setTimeout(() => {
+      setIsOpenModalCart(false);
+    }, 300);
   };
   const handleOpenModalFilter = () => {
     setIsOpenModalFilter(true);
     setTimeout(() => {
-      setIsTranslate(true);
+      setIsTransitionModalFilter(true);
     }, 10);
   };
   const handleCloseModalFilter = () => {
-    setIsTranslate(false);
+    setIsTransitionModalFilter(false);
     setTimeout(() => {
       setIsOpenModalFilter(false);
     }, 500);
@@ -30,22 +40,25 @@ function App() {
   return (
     <div
       className={`flex flex-col min-h-screen transition-transform transform duration-500 *:transition-all
-      ${isTranslate ? "-translate-x-80" : "translate-x-0"}`}
+      ${isTransitionModalFilter ? "-translate-x-80" : "translate-x-0"}`}
     >
       {isOpenModalCart && (
-        <CartModal handleHideModalCart={() => handleModalCart(false)} />
+        <CartModal
+          handleHideModalCart={() => handleCloseModalCart()}
+          isOpen={isTransitionModalCart}
+        />
       )}
       {isOpenModalFilter && (
         <Sidebar
           handleHideModalFilter={() => handleCloseModalFilter()}
-          isOpen={isTranslate}
+          isOpen={isTransitionModalFilter}
         />
       )}
       <Header
-        handleOpenModalCart={() => handleModalCart(true)}
+        handleOpenModalCart={() => handleOpenModalCart()}
         handleOpenSidebarFilter={() => handleOpenModalFilter()}
       />
-      <main className="flex-grow flex max-w-7xl mx-auto px-4">
+      <main className="flex flex-row flex-grow max-w-7xl mx-auto px-4">
         <ProductList />
       </main>
       <Footer />

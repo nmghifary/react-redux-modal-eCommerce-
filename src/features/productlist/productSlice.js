@@ -44,6 +44,8 @@ export const productSlice = createSlice({
             })
             state.filteredProducts = state.productItems
             state.categoryItems = [...new Set(newItem.map(item => item.category))];
+            state.categoryItems = state.categoryItems.map(category => category.charAt(0).toUpperCase() + category.slice(1))
+
         },
         filterByCatagories: (state, action) => {
             const newCategory = action.payload;

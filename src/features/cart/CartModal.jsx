@@ -11,7 +11,7 @@ import {
   selectSelectedItemsID,
 } from "./cartSlice";
 
-const CartModal = ({ handleHideModalCart }) => {
+const CartModal = ({ handleHideModalCart, isOpen }) => {
   const cartItems = useSelector(selectCartItems);
   const totalItems = useSelector(selectCheckoutTotalItems);
   const totalPrice = useSelector(selectCheckoutTotalPrices);
@@ -43,9 +43,9 @@ const CartModal = ({ handleHideModalCart }) => {
   };
 
   return (
-    <Modal handleHideModal={handleHideModalCart}>
+    <Modal handleHideModal={handleHideModalCart} isOpen={isOpen}>
       <div className="flex flex-col gap-6 p-1: sm:p-2 w-full lg:w-[900px]">
-        <div className="flex flex-col gap-6 max-h-[500px] overflow-auto">
+        <div className="flex flex-col gap-6 max-h-[350px] overflow-auto">
           {cartItems.map((product) => {
             return (
               <div
@@ -59,15 +59,17 @@ const CartModal = ({ handleHideModalCart }) => {
                     onChange={() => handleCheckboxChange(product.id)}
                     className="w-5 h-5 text-blue-500 rounded-xl"
                   />
-                  <div className="w-[120px] h-auto overflow-hidden">
+                  <div className="w-[120px] overflow-hidden">
                     <img
                       src={product.image}
                       alt={product.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-32 object-contain"
                     />
                   </div>
                   <div className="ml-4 w-[75%]">
-                    <h3 className="capitalize mt-3 text-lg">{product.title}</h3>
+                    <h3 className="capitalize mt-3 text-lg line-clamp-2">
+                      {product.title}
+                    </h3>
                     <div className="flex items-center gap-2">
                       <h4 className="text-sm">{product.price}</h4>
                       <h3 className="text-lg font-bold">

@@ -51,7 +51,7 @@ const Footer = () => {
         </div>
 
         <div className="text-center text-sm text-gray-400">
-          &copy; {new Date().getFullYear()} Redux E-Commerce. All Rights
+          &copy; {new Date().getFullYear()} Naufal M Ghifary. All Rights
           Reserved.
         </div>
       </div>
