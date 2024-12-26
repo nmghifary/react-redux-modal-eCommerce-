@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart } from "../cart/cartSlice";
+import { Slide, toast } from "react-toastify";
 import { FaBookmark, FaRegBookmark, FaStar } from "react-icons/fa6";
+import { addItemToCart } from "../cart/cartSlice";
 import Skeleton from "../../components/Skeleton";
 import {
   selectFilteredProducts,
@@ -31,6 +32,16 @@ const ProductList = () => {
   }, [dispatch]);
 
   const handleClickBuy = (product) => {
+    toast.success("Succesfully add item 🎉", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      theme: "light",
+      transition: Slide,
+    });
     dispatch(addItemToCart(product));
   };
   const handleClickBookmark = (product) => {
@@ -42,9 +53,10 @@ const ProductList = () => {
       <div className="w-full h-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 py-2 pb-4">
         {isLoading ? (
           <>
-            {Array.from({ length: 8 }).map((_, index) => (
+            {Array.from({ length: 3 }).map((_, index) => (
               <Skeleton key={index} />
             ))}
+            <Skeleton className="block sm:hidden lg:block" />
           </>
         ) : (
           <>

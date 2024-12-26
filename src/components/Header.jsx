@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import CartIcon from "../assets/cart.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCartTotalItems } from "../features/cart/cartSlice";
 import { useEffect, useState } from "react";
+import { Slide, ToastContainer } from "react-toastify";
 import { FaBars, FaSearch, FaStore } from "react-icons/fa";
+import { selectCartTotalItems } from "../features/cart/cartSlice";
 import {
   searchProduct,
   selectCategories,
@@ -121,6 +122,20 @@ const Header = ({ handleOpenModalCart, handleOpenSidebarFilter }) => {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover={false}
+        theme="light"
+        transition={Slide}
+        className="absolute"
+      />
     </header>
   );
 };
