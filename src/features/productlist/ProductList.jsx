@@ -53,10 +53,9 @@ const ProductList = () => {
       <div className="w-full h-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 py-2 pb-4">
         {isLoading ? (
           <>
-            {Array.from({ length: 3 }).map((_, index) => (
+            {Array.from({ length: 8 }).map((_, index) => (
               <Skeleton key={index} />
             ))}
-            <Skeleton className="block sm:hidden lg:block" />
           </>
         ) : (
           <>

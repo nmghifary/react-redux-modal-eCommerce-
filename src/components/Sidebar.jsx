@@ -15,7 +15,7 @@ import Modal from "./ModalFilter";
 const Sidebar = ({ handleHideModalFilter, isOpen }) => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
-  const filteredCategoris = useSelector(selectFilteredCategories);
+  const filteredCategories = useSelector(selectFilteredCategories);
   const sortedType = useSelector(selectSortedType);
   const filteredBookmark = useSelector(selectFilteredBookmark);
   const sortDatas = [
@@ -43,7 +43,7 @@ const Sidebar = ({ handleHideModalFilter, isOpen }) => {
         <h3 className="text-lg font-medium">Categories</h3>
         <div className="grid grid-cols-2 gap-2">
           {categories.map((category, index) => {
-            const isActive = filteredCategoris.includes(category);
+            const isActive = filteredCategories.includes(category);
 
             return (
               <button
@@ -59,7 +59,7 @@ const Sidebar = ({ handleHideModalFilter, isOpen }) => {
                     <FaCheck className="absolute top-0.5 left-1 text-blue-100 group-hover:text-blue-200" />
                   </div>
                 ) : null}
-                {category}
+                {category.charAt(0).toUpperCase() + category.slice(1)}
               </button>
             );
           })}

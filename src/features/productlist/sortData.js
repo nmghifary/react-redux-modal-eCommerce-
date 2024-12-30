@@ -10,7 +10,7 @@ const sortData = (datas, operator) => {
             return datas.sort((a, b) => a.price - b.price)
         case 'TOPRATED':
             return datas.sort((a, b) => b.rating.rate - a.rating.rate)
-        case 'MOSTREVIEWS':
+        case 'MOSTREVIEWED':
             return datas.sort((a, b) => b.rating.count - a.rating.count)
         default:
             return datas.sort((a, b) => a.id - b.id)

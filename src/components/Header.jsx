@@ -13,7 +13,10 @@ import {
 const Header = ({ handleOpenModalCart, handleOpenSidebarFilter }) => {
   const dispatch = useDispatch();
   const cartTotalItems = useSelector(selectCartTotalItems);
-  const categories = useSelector(selectCategories);
+  let categories = useSelector(selectCategories);
+  categories = categories.map(
+    (category) => category.charAt(0).toUpperCase() + category.slice(1)
+  );
   const [keyword, setKeyword] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isSlidingIn, setIsSlidingIn] = useState(false);

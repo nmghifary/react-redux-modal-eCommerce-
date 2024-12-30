@@ -44,7 +44,7 @@ const CartModal = ({ handleHideModalCart, isOpen }) => {
 
   return (
     <Modal handleHideModal={handleHideModalCart} isOpen={isOpen}>
-      <div className="flex flex-col gap-6 p-1: sm:p-2 w-full lg:w-[900px]">
+      <div className="flex flex-col gap-6 p-1: sm:p-2 max-w-full lg:w-[900px]">
         <div className="flex flex-col gap-6 max-h-[350px] overflow-auto">
           {cartItems.map((product) => {
             return (

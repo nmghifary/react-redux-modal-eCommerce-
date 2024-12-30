@@ -13,20 +13,21 @@ const initialState = {
 
 const getFilteredProducts = (state) => {
     let tempDatas = [];
-    if (state.keywordSearch !== "") {
+    // cek search keyword
+    if (state.searchKeyword !== "") {
         tempDatas = state.productItems.filter(item => item.title.toLowerCase().includes(state.searchKeyword.toLowerCase()));
     } else {
         tempDatas = state.productItems
     }
-
+    // cek bookmark
     if (state.filteredBookmark) {
         tempDatas = tempDatas.filter(item => item.bookmark === true);
     }
-
+    // cek filter category
     if (state.filteredCategories.length !== 0) {
         tempDatas = tempDatas.filter(item => state.filteredCategories.includes(item.category));
     }
-
+    // cek sort data
     state.filteredProducts = sortData(tempDatas, state.sortedType)
 }
 
@@ -44,8 +45,6 @@ export const productSlice = createSlice({
             })
             state.filteredProducts = state.productItems
             state.categoryItems = [...new Set(newItem.map(item => item.category))];
-            state.categoryItems = state.categoryItems.map(category => category.charAt(0).toUpperCase() + category.slice(1))
-
         },
         filterByCatagories: (state, action) => {
             const newCategory = action.payload;
