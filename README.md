@@ -1,9 +1,9 @@
-Redux E-commerce
-Link  https://react-redux-modal-e-commerce.vercel.app/
-Github   https://github.com/nmghifary/react-redux-modal-eCommerce-
-A portfolio website using a public API for learning purposes using Redux
-Technologies	: React, React-Redux, Vite
-Features	: Cart, Modal, Filter and Search, Bookmark
+### Redux E-commerce
+Link  https://react-redux-modal-e-commerce.vercel.app/<br/>
+Github   https://github.com/nmghifary/react-redux-modal-eCommerce-<br/>
+A portfolio website using a public API for learning purposes using Redux<br/>
+Technologies	: React, React-Redux, Vite<br/>
+Features	: Cart, Modal, Filter and Search, Bookmark<br/>
 
 # React + Vite
 
